@@ -1,0 +1,88 @@
+@box-shadow: 1px 3px 10px #999;
+@color-border-panel: rgb(204, 204, 204);
+//календарь
+
+.calendar-box {
+  /*width: 200pt;*/
+  font: monospace;
+  line-height: 1.2em;
+  font-size: 14px;
+  text-align: center;
+  z-index: 1000;
+  position: absolute;
+  background: #fff;
+  display: none;
+
+  border: 1px solid @color-border-panel;
+  padding: 4pt 2pt 4pt;
+
+  box-shadow: @box-shadow;
+}
+
+.calendar-box_visible{
+  display: block;
+}
+
+.calendar-box__month-select{
+  width: 65pt;
+  height: 16pt;
+}
+
+.calendar-box__year-select{
+  width: 50pt;
+  height: 16pt;
+}
+
+.calendar-toggle{
+  cursor: pointer;
+}
+
+
+.calendar-box__table{
+  margin-top: 10pt;
+}
+// строка с перечисление дней недели
+.calendar-box__table__week{
+  color: #b5b9ba;
+  font-size: 0.8em;
+}
+/*
+.calendar thead tr:last-child {
+  font-size: small;
+  color: rgb(85, 85, 85);
+}
+.calendar thead select, .calendar thead input{
+  border: 0;
+  height: 14pt;
+}
+
+.calendar tbody td {
+  color: rgb(44, 86, 122);
+}
+*/
+.calendar-box__table__tbody td{
+  padding: 3pt;
+}
+.calendar-box__table__tbody td:nth-child(n+6){
+  color: #cb8f00;
+  //font-weight: bold;
+}
+
+.calendar-box__table__tbody__item:hover{
+  cursor: pointer;
+  //  background: #acbdc0;
+  //color: #fff;
+  font-weight: bold;
+
+}
+
+.calendar-box__table__tbody__item_holiday {
+  color: rgb(231, 140, 92);
+}
+
+.calendar-box__table__tbody__item_today {
+  outline: 3px solid #b43434;
+  //background: #00aa00;
+}
+
+//календарь

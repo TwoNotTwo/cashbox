@@ -1,0 +1,74 @@
+@color-border-panel: rgb(204, 204, 204);
+@color-thead: rgb(240, 240, 240);
+@box-shadow: 1px 3px 7px rgb(170, 170, 170);
+//контекстное меню
+.context-menu{
+  display: none;
+  box-shadow: @box-shadow;
+  ul{
+    padding: 5pt 5pt;
+    margin: 0;
+
+    li:first-child{
+      border-top: 1px solid #DEDEDE;
+    }
+    li {
+      list-style: none;
+      line-height: 15pt;
+      border-bottom: 1px solid #DEDEDE;
+
+
+      :last-child{
+        border-bottom: 0;
+      }
+
+      div {
+        padding: 4pt 5pt;
+        width: 100%;
+
+        a {
+          text-decoration: none;
+          color: #000;
+
+        }
+
+        span{
+          float: right;
+          padding-left: 10pt;
+        }
+
+      }
+      :hover{
+        background: @color-thead;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.context-menu_active{
+  display: block;
+  z-index: 1000;
+  position: absolute;
+  border: 1px solid @color-border-panel;
+  background: #ffffff;
+}
+
+.color-blue{
+  color: #6dc1f6;
+};
+.color-blue_dark{
+  color: #257fb9;
+};
+
+.color-red{
+  color: #b72828;
+};
+
+.color-orange{
+  color: #f6b641;
+};
+
+.color-green{
+  color: #9bea9b;
+};

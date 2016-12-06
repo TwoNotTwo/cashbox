@@ -1,0 +1,253 @@
+@color-border-panel: rgb(204, 204, 204);
+@color-border-table: #757575;
+@color-thead: rgb(240, 240, 240);
+@box-shadow: 1px 3px 10px #999;
+
+body{
+  background: #F6F6F6;
+  height: 100vh;
+}
+
+.footer{
+
+}
+
+.toolbar-top{
+/*  position: fixed;
+  width: 1170px;
+*/
+  .btn-group-right{
+    text-align: right;
+  }
+
+
+}
+
+.cashbox-select-company{
+  text-align-last: center;
+}
+
+
+.cashbox-select-company option{
+  padding: 3px 0;
+}
+
+//лист с отчетом
+.report {
+  background: #fff;
+  padding: 5pt 0pt 10pt;
+  margin-top: 10pt;
+  border-radius: 4px;
+  border: 1px solid @color-border-panel;
+
+  position: fixed;
+  margin-top: 55pt;
+  width: 1170px;
+}
+
+
+
+.report__table {
+  width: 100%;
+  float: right;
+  //padding: 2pt 0pt 2pt;
+  td {
+    text-align: center;
+    border: 1px solid #757575;
+  }
+}
+
+
+
+.report__table__thead__tr {
+  background: @color-thead;
+
+  display: block;
+  position: fixed;
+  td {
+    height: 42px;
+  }
+}
+
+.report__table__tbody{
+  //max-height: 553pt;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: block;
+
+  margin-top: 30pt;
+}
+
+.report__info-box{
+  padding: 0 15px 0;
+  display: block;
+  height: 26px;
+  margin-bottom: 10pt;
+}
+
+//статус "Сохранено"
+.report__info-box__status{
+  line-height: 26px;
+  margin-left: 50%;
+  display: none;
+  color: #78b15f;
+  font-weight: bold;
+
+}
+
+
+
+//Итого: 0.00 руб.
+.report__info-box__total-cost {
+  float: right;
+  span {
+    font-size: 1.3em;
+  }
+}
+
+
+
+
+.report__table__tbody__tr, .report__table__tbody__tr_last{
+  td{
+    padding: 2pt 0 2pt;
+    input{
+      text-align: center;
+      width: 100%;
+      border: 0;
+      outline: none;
+      color: #000000;
+    }
+  }
+}
+
+.report__table__tbody__tr_last{
+  color: #dedede;
+  td {
+    border: 1px solid #dedede;
+  }
+}
+
+//таблица
+
+.report__table__tbody__tr__row-number{
+  width: 32pt;
+}
+.report__table__tbody__tr__cost{
+  width: 99pt;
+}
+.report__table__tbody__tr__price-type{
+  width: 66pt;
+}
+.report__table__tbody__tr__client{
+  width: 328pt;
+}
+.report__table__tbody__tr__manager{
+  width: 100pt;
+}
+.report__table__tbody__tr__price-column{
+  width: 56pt;
+}
+.report__table__tbody__tr__document-number{
+  width: 88pt;
+}
+.report__table__tbody__tr__document-date{
+  width: 86pt;
+}
+
+
+//сохраненные отчеты
+
+.report__history {
+  display: none;
+}
+
+.report__history_visible{
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.report__history_invisible {
+  display: none;
+}
+
+.report__history__caption{
+  text-align: center;
+}
+.report__history__year-list{
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.report__history__year-list__item{
+  border: 1px solid @color-border-table;
+  margin-bottom: 10pt;
+}
+.report__history__year-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.report__history__year-list__item__caption{
+  text-align: center;
+  cursor: pointer;
+}
+
+.report__history__year-list__item__month-list{
+  list-style: none;
+  padding-left: 0;
+  :last-child{
+    margin-bottom: 0;
+  }
+  display: none;
+}
+
+.report__history__year-list__item__month-list_visible{
+  display: block;
+}
+
+.report__history__year-list__item__month-list__item{
+  margin-bottom: 10pt;
+  background: #F0F0F0;
+  :first-child {
+    margin-top: 5pt;
+  }
+  padding-bottom: 2pt;
+}
+
+.report__history__year-list__item__month-list__item__caption{
+  padding-left: 10pt;
+  cursor: pointer;
+}
+
+.report__history__year-list__item__month-list__item__day-list{
+  list-style: none;
+  padding: 0 2pt 0;
+  display: none;
+  :last-child{
+    border-bottom: 0;
+  }
+  :hover{
+    cursor: pointer;
+    background: #28a4c9;
+  }
+}
+
+.report__history__year-list__item__month-list__item__day-list_visible{
+  display: block;
+}
+
+.report__history__year-list__item__month-list__item__day-list__item{
+  border-bottom: 1px solid @color-border-panel;
+}
+
+.report__history__year-list__item__month-list__item__day-list__item_active{
+  background: #78b15f;
+}
+
+.report__history__year-list__item__month-list__item__day-list__item__caption{}
+
+.report__history__year-list__item__month-list__item__day-list__item__cost{
+  float: right;
+}
