@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\cashbox\frontend\models;
+namespace common\modules\cashbox\common\models;
 
 use Yii;
 

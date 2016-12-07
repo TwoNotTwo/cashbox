@@ -1,24 +1,24 @@
 <?php
 
-namespace common\modules\cashbox\frontend\models;
+namespace common\modules\cashbox\common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "{{%cashbox_manager}}".
+ * This is the model class for table "{{%cashbox_seller}}".
  *
  * @property integer $id
- * @property string $managername
+ * @property string $sellername
  * @property integer $status
  */
-class CashboxManager extends \yii\db\ActiveRecord
+class CashboxSeller extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%cashbox_manager}}';
+        return '{{%cashbox_seller}}';
     }
 
     /**
@@ -27,9 +27,9 @@ class CashboxManager extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['managername'], 'required'],
+            [['sellername'], 'required'],
             [['status'], 'integer'],
-            [['managername'], 'string', 'max' => 255],
+            [['sellername'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,7 +40,7 @@ class CashboxManager extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'managername' => 'Managername',
+            'sellername' => 'Sellername',
             'status' => 'Status',
         ];
     }

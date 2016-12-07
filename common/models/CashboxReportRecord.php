@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\cashbox\frontend\models;
+namespace common\modules\cashbox\common\models;
 
 use Yii;
 
@@ -33,7 +33,7 @@ class CashboxReportRecord extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['history_id', 'cost'], 'required'],
+            [['history_id'], 'required'],
             [['history_id', 'manager_id', 'client_id'], 'integer'],
             [['cost'], 'number'],
             [['document_date'], 'safe'],
