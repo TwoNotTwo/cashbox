@@ -5,11 +5,11 @@ namespace common\modules\cashbox\frontend\controllers;
 use Yii;
 //use yii\db\QueryBuilder;
 use yii\web\Controller;
-use common\modules\cashbox\frontend\models\CashboxSeller;
-use common\modules\cashbox\frontend\models\CashboxClient;
-use common\modules\cashbox\frontend\models\CashboxManager;
-use common\modules\cashbox\frontend\models\CashboxHistory;
-use common\modules\cashbox\frontend\models\CashboxReportRecord;
+use common\modules\cashbox\common\models\CashboxSeller;
+use common\modules\cashbox\common\models\CashboxClient;
+use common\modules\cashbox\common\models\CashboxManager;
+use common\modules\cashbox\common\models\CashboxHistory;
+use common\modules\cashbox\common\models\CashboxReportRecord;
 
 
 
