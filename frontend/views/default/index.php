@@ -90,7 +90,6 @@ $this->title = 'Кассовый отчет';
 </div>
 
 
-
 <div class="col-lg-12 col-sm-12 report">
     <div class="report__info-box">
         <span class="report__info-box__status">Сохранено</span>
@@ -116,13 +115,13 @@ $this->title = 'Кассовый отчет';
             <tbody class="report__table__tbody">
                 <tr class="report__table__tbody__tr">
                     <td class="report__table__tbody__tr__row-number">1</td>
-                    <td class="report__table__tbody__tr__cost"><input class="report__table__tbody__tr__cost__input" autofocus="true"/></td>
+                    <td class="report__table__tbody__tr__cost"><input class="report__table__tbody__tr__cost__input" autofocus/></td>
                     <td class="report__table__tbody__tr__price-type"><input class="report__table__tbody__tr__price-type__input"/></td>
                     <td class="report__table__tbody__tr__client"><input class="report__table__tbody__tr__client__input"/></td>
                     <td class="report__table__tbody__tr__manager"><input class="report__table__tbody__tr__manager__input"/></td>
                     <td class="report__table__tbody__tr__price-column"><input class="report__table__tbody__tr__price-column__input"/></td>
                     <td class="report__table__tbody__tr__document-number"><input class="report__table__tbody__tr__document-number__input"/></td>
-                    <td class="report__table__tbody__tr__document-date"><input class="report__table__tbody__tr__document-date__input" autofocus="false"/></td>
+                    <td class="report__table__tbody__tr__document-date"><input class="report__table__tbody__tr__document-date__input"/></td>
                 </tr>
                 <tr class="report__table__tbody__tr_last">
                     <td class="report__table__tbody__tr__row-number">2</td>
@@ -132,28 +131,10 @@ $this->title = 'Кассовый отчет';
                     <td class="report__table__tbody__tr__manager"><input class="report__table__tbody__tr__manager__input"/></td>
                     <td class="report__table__tbody__tr__price-column"><input class="report__table__tbody__tr__price-column__input"/></td>
                     <td class="report__table__tbody__tr__document-number"><input class="report__table__tbody__tr__document-number__input"/></td>
-                    <td class="report__table__tbody__tr__document-date"><input class="report__table__tbody__tr__document-date__input" autofocus="false"/></td>
+                    <td class="report__table__tbody__tr__document-date"><input class="report__table__tbody__tr__document-date__input"/></td>
                 </tr>
-
             </tbody>
         </table>
     </div>
-
-</div>
-<!-- заготовка для замены окна confirm
-
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>
-        <h3 id="myModalLabel">Заголовок модального элемента</h3>
-    </div>
-    <div class="modal-body">
-        <p>Некое изящное тело…</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
-        <button class="btn btn-primary">Сохранить изменения</button>
-    </div>
 </div>
 
--->

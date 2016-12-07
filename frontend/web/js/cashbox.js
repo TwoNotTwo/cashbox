@@ -56,8 +56,9 @@ $(document).ready(function() {
 
 
 //скрываем контекстное меню
-    $(document).on('click', function () {
-        closeContextMenu();
+
+    $(document).on('click', 'body', function(event) {
+       closeContextMenu();
     });
 
 
@@ -69,11 +70,8 @@ $(document).ready(function() {
     });
 
 //добавление пустой строки в конец таблице, при переходе корретки на текущую последнюю строку
-    $(document).on('click', '.report__table__tbody__tr_last input', function() {
         parent_row = $(this).parents('.report__table__tbody__tr_last');
-
         $(parent_row).attr('class', 'report__table__tbody__tr');
-
         count_row = $('.report__table__tbody__tr').length + 1;
 
         $(parent_row).after(
@@ -126,10 +124,8 @@ $(document).ready(function() {
 //новый отчет
     $(document).on('click', '.report__new-report', function () {
         // нужно делать отслеживание того сохранен ли отчет или нет чтобы не терять введенные данные
-
         newReport();
         resizeReportHeader();
-
     });
 
 
@@ -145,10 +141,7 @@ $(document).ready(function() {
 
 //загрузка отчета
     $(document).on('click', '.report__history__year-list__item__month-list__item__day-list__item', function(){
-
         loadReport($(this));
-        //resizeReportHeader();
-
     });
 
 
@@ -1526,8 +1519,6 @@ function newReport(){
 
     $('.report__table__tbody__tr_last .report__table__tbody__tr__row-number').html($('.report__table__tbody__tr').length + 1);
     setTotalCost();
-   // resizeReportHeader();
-
     $('.report__table__tbody__tr__cost__input').first().focus();
 }
 
