@@ -138,3 +138,4 @@ $this->title = 'Кассовый отчет';
     </div>
 </div>
 
+<input style="opacity: 0;"/>

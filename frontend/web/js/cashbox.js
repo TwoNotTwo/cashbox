@@ -70,6 +70,7 @@ $(document).ready(function() {
     });
 
 //добавление пустой строки в конец таблице, при переходе корретки на текущую последнюю строку
+    $(document).on('focus', '.report__table__tbody__tr_last input', function() {
         parent_row = $(this).parents('.report__table__tbody__tr_last');
         $(parent_row).attr('class', 'report__table__tbody__tr');
         count_row = $('.report__table__tbody__tr').length + 1;
