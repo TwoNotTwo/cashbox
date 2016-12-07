@@ -197,7 +197,7 @@ $(document).ready(function() {
 
 
 //вызов контекстного меню
-/*
+
      $(document).on('contextmenu', '.report__table__tbody input', function(event) {
          event.preventDefault();
 
@@ -226,7 +226,7 @@ $(document).ready(function() {
          contextmenu = generateContextMenu(items, event);
          closeCalendar();
      });
-*/
+
 
 
 //очистка строки
