@@ -24,7 +24,10 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $sellerList = CashboxSeller::find()->where(['status' => '1'])->all();
+        return $this->render('index', [
+            'sellerList' => $sellerList,
+        ]);
     }
 
 

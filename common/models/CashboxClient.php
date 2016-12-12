@@ -43,10 +43,11 @@ class CashboxClient extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'clientname' => 'Clientname',
+            'clientname' => 'Клиент',
             'manager_id' => 'Manager ID',
             'price_column' => 'Price Column',
             'status' => 'Status',
         ];
     }
+
 }

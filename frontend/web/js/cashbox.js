@@ -51,7 +51,7 @@ $(document).ready(function() {
     resizeReportHeader();
     getClientList();
     getManagerList();
-    getSellerList();
+    getHistory();
 
 
 
@@ -64,8 +64,7 @@ $(document).ready(function() {
 
     //подгрузка истории отчетов при смене компании
     $(document).on('change', '.cashbox-select-company', function(){
-        var seller = $('.cashbox-select-company option:selected').val();
-        getHistory(seller);
+        getHistory();
         loadReport($('.report__history__year-list__item__month-list__item__day-list__item_active'));
     });
 
@@ -1562,7 +1561,8 @@ function checkFieldsForDB(row){
 }
 
 
-function getHistory(sellerID){
+function getHistory(){
+    var sellerID = $('.cashbox-select-company option:selected').val();
     var result = false;
     $.ajax({
         url: '/cashbox/default/get-history',
