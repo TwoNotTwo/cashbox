@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use common\modules\cashbox\frontend\assets\CashboxAsset;
+
 
 CashboxAsset::register($this);
 $this->title = 'Кассовый отчет';
@@ -8,7 +10,8 @@ $this->title = 'Кассовый отчет';
 <div class="toolbar-top">
 
     <div class="col-lg-4 col-sm-4">
-        <?= Html::dropDownList('company', 0, [],
+
+        <?= Html::dropDownList('company', 1, ArrayHelper::map($sellerList, 'id', 'sellername'),
             [
                 'class' => 'btn cashbox-select-company',
                 'style' => [

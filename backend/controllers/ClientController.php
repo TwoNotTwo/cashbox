@@ -13,29 +13,32 @@ use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 use common\modules\cashbox\common\models\CashboxClient;
 
-class ClientController extends Controller {
+class ClientController extends Controller
+{
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
 
         $recordCount = CashboxClient::find()->count();
-/*
-        $provider = new ActiveDataProvider([
-            'query' => CashboxClient::find(),
-            'pagination' => [
-                'pageSize' => 15,
-            ],
+        /*
+                $provider = new ActiveDataProvider([
+                    'query' => CashboxClient::find(),
+                    'pagination' => [
+                        'pageSize' => 15,
+                    ],
 
-        ]);
-*/
-        return $this->render('index',[
+                ]);
+        */
+        return $this->render('index', [
             'recordCount' => $recordCount,
-  //          'dataProvider' =>$provider
+            //          'dataProvider' =>$provider
 
         ]);
     }
 
-    public function actionFindUncorrInitials(){
-        if (Yii::$app->request->isAjax){
+    public function actionFindUncorrInitials()
+    {
+        if (Yii::$app->request->isAjax) {
             $query = CashboxClient::find()->where(['clientname' => 'Очкина Г.Н'])->all();
 
 
