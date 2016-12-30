@@ -11,7 +11,6 @@ var KEY_PAGEUP = 33;
 var KEY_PAGEDOWN = 34;
 
 
-
 var contextmenu_row;
 var contextmenu_row_index;
 
@@ -45,7 +44,7 @@ var state_history = [];
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     welcome();
     resizeReportList();
     resizeReportHeader();
@@ -54,22 +53,21 @@ $(document).ready(function() {
     getHistory();
 
 
-
 //скрываем контекстное меню
 
-    $(document).on('click', 'body', function(event) {
-       closeContextMenu();
+    $(document).on('click', 'body', function (event) {
+        closeContextMenu();
     });
 
 
     //подгрузка истории отчетов при смене компании
-    $(document).on('change', '.cashbox-select-company', function(){
+    $(document).on('change', '.cashbox-select-company', function () {
         getHistory();
         loadReport($('.report__history__year-list__item__month-list__item__day-list__item_active'));
     });
 
 //добавление пустой строки в конец таблице, при переходе корретки на текущую последнюю строку
-    $(document).on('focus', '.report__table__tbody__tr_last input', function() {
+    $(document).on('focus', '.report__table__tbody__tr_last input', function () {
         parent_row = $(this).parents('.report__table__tbody__tr_last');
         $(parent_row).attr('class', 'report__table__tbody__tr');
         count_row = $('.report__table__tbody__tr').length + 1;
@@ -130,17 +128,17 @@ $(document).ready(function() {
 
 
 //сохранение отчета
-    $(document).on('click', '.report__save-report', function(){
+    $(document).on('click', '.report__save-report', function () {
         saveReport();
     });
 
 //печать отчета
-    $(document).on('click', '.report_print-report', function(){
-       printReport();
+    $(document).on('click', '.report_print-report', function () {
+        printReport();
     });
 
 //загрузка отчета
-    $(document).on('click', '.report__history__year-list__item__month-list__item__day-list__item', function(){
+    $(document).on('click', '.report__history__year-list__item__month-list__item__day-list__item', function () {
         loadReport($(this));
     });
 
@@ -163,7 +161,6 @@ $(document).ready(function() {
     });
 
 
-
 //горячие клавиши
     $(document).on('keydown', '.report__table__tbody__tr td input', function (event) {
         input = $(this);
@@ -175,21 +172,21 @@ $(document).ready(function() {
                 if (!usingList()) {
                     copyUpperRow(current_row, input);
                 }
-            break;
+                break;
 
             case KEY_PAGEDOWN:
                 console.log('Копирование значений строки, что расположена ниже. Не реализовано.');
-            break;
+                break;
 
             case  KEY_ENTER:
                 if (!usingList()) {
                     getNextInput($(input)).focus();
                 }
-            break;
+                break;
 
             case KEY_TAB:
                 removeDropDownList();
-            break;
+                break;
 
         }
     });
@@ -197,35 +194,34 @@ $(document).ready(function() {
 
 //вызов контекстного меню
 
-     $(document).on('contextmenu', '.report__table__tbody input', function(event) {
-         event.preventDefault();
+    $(document).on('contextmenu', '.report__table__tbody input', function (event) {
+        event.preventDefault();
 
-         contextmenu_row = $(this).parents('.report__table__tbody__tr');
-         contextmenu_row_index = contextmenu_row.index();
-         contextmenu_element = $(this);
+        contextmenu_row = $(this).parents('.report__table__tbody__tr');
+        contextmenu_row_index = contextmenu_row.index();
+        contextmenu_element = $(this);
 
-         items = [
+        items = [
             ['Добавить пустую строку сверху', '', 'glyphicon glyphicon-arrow-up color-blue', 'insert-top'],
             ['Добавить пустую строку снизу', '', 'glyphicon glyphicon-arrow-down color-blue_dark', 'insert-bottom']
-         ];
+        ];
 
-         if (contextmenu_row_index > 0){
+        if (contextmenu_row_index > 0) {
             prev_row = contextmenu_row.prev();
-            if (isEmpty(prev_row)){
+            if (isEmpty(prev_row)) {
                 items.push(['Скопировать то, что сверху', '', 'glyphicon glyphicon-chevron-down color-green', 'addfromtop-row']);
             }
-         }
+        }
 
-         if (isEmpty(contextmenu_row)) {
-            items.push( ['Очистить строку', '', 'glyphicon glyphicon-minus color-orange', 'clear-row'] );
-         }
+        if (isEmpty(contextmenu_row)) {
+            items.push(['Очистить строку', '', 'glyphicon glyphicon-minus color-orange', 'clear-row']);
+        }
 
-         items.push( ['Удалить строку', '', ' glyphicon glyphicon-trash color-red', 'delete-row'] );
+        items.push(['Удалить строку', '', ' glyphicon glyphicon-trash color-red', 'delete-row']);
 
-         contextmenu = generateContextMenu(items, event);
-         closeCalendar();
-     });
-
+        contextmenu = generateContextMenu(items, event);
+        closeCalendar();
+    });
 
 
 //очистка строки
@@ -259,7 +255,6 @@ $(document).ready(function() {
                     $('.report__table__tbody__tr_last').children('td').children('input').focus();
                 }
                 renumbering();
-
             } else {
                 closeContextMenu();
                 return false;
@@ -321,14 +316,10 @@ $(document).ready(function() {
     });
 
 
-
-
 //выбор даты в календаре
     $(document).on('click', '.calendar-box__table__tbody__item', function (event) {
         $('.tool-bar__report-date-box__date').html(getCalendarDate());
     });
-
-
 
 
 //автозаполнение
@@ -405,11 +396,11 @@ $(document).ready(function() {
 //поиск и перевод в верхний регистр инициалов
         var initials = '';
         var reg = /\s.\./gi;
-        var initialsShort = reg.exec(inputVal)+'';
+        var initialsShort = reg.exec(inputVal) + '';
 
 
         reg = /\s.\..\./gi;
-        var initialsFull = reg.exec(inputVal)+'';
+        var initialsFull = reg.exec(inputVal) + '';
 
 
         if (initialsShort.length > 0 && initialsShort != 'null') {
@@ -430,7 +421,6 @@ $(document).ready(function() {
         if (inputVal.length > 0)
             $(this).val(inputVal);
 //конец. поиск и перевод в верхний регистр инициалов
-
 
 
         if (event.keyCode != KEY_TAB && event.keyCode != KEY_SHIFT) {
@@ -479,35 +469,33 @@ $(document).ready(function() {
      */
 
 
+    /** изменение значение input */
+    $(document).bind('activeInputChange', function (event, input) {
 
-/** изменение значение input */
-$(document).bind('activeInputChange', function (event, input) {
+        switch ($(input).attr('class')) {
+            case 'report__table__tbody__tr__client__input':
+                current_row = getCurrentRow($(input));
 
-    switch ($(input).attr('class')){
-        case 'report__table__tbody__tr__client__input':
-            current_row = getCurrentRow($(input));
+                manager = current_row.children('td').children('.report__table__tbody__tr__manager__input');
+                priceColumn = current_row.children('td').children('.report__table__tbody__tr__price-column__input');
 
-            manager = current_row.children('td').children('.report__table__tbody__tr__manager__input');
-            priceColumn = current_row.children('td').children('.report__table__tbody__tr__price-column__input');
+                manager.val('');
+                manager.removeAttr(ATTR_RECID);
 
-            manager.val('');
-            manager.removeAttr(ATTR_RECID);
+                priceColumn.val('');
+                priceColumn.removeAttr(ATTR_RECID);
+                break;
 
-            priceColumn.val('');
-            priceColumn.removeAttr(ATTR_RECID);
-        break;
+            case 'report__table__tbody__tr__manager__input':
 
-        case 'report__table__tbody__tr__manager__input':
+                break;
+        }
+    });
 
-        break;
-    }
-});
-
-/** изменение значение input */
-
+    /** изменение значение input */
 
 
-/** отслеживание момента заполнения input через autocomplete */
+    /** отслеживание момента заполнения input через autocomplete */
     $(document).bind('autocompleteDone', function (event, input) {
         var managerFill = false;
         var priceColumnFill = false;
@@ -546,11 +534,10 @@ $(document).bind('activeInputChange', function (event, input) {
                     priceColumnInput.val(priceColumn);
                 }
 
-
                 (priceColumnFill) ? false : priceColumnInput.focus();
                 (managerFill) ? false : managerInput.focus();
                 (managerFill && priceColumnFill) ? documentNumberInput.focus() : false;
-            break;
+                break;
 
             case 'report__table__tbody__tr__manager__input':
                 if (!(priceColumnInput.hasAttr(ATTR_RECID))) {
@@ -560,21 +547,21 @@ $(document).bind('activeInputChange', function (event, input) {
                     sendClientToDB(clientInput, managerInput, priceColumnInput);
 
                     /* дописать проверку заполненности полей: номер документа, дата документа.
-                        если все заполенно, то преход на новую строку?
-                        новая строка - создать пустую или проверить заполненность слудующей?
-                      */
+                     если все заполенно, то преход на новую строку?
+                     новая строка - создать пустую или проверить заполненность слудующей?
+                     */
                     documentNumberInput.focus();
                 }
-            break;
+                break;
 
             //поле "Тип цены"
             case 'report__table__tbody__tr__price-type__input':
                 var nextInput = getNextInput(input);
-                while (nextInput.val().length > 0 ){
+                while (nextInput.val().length > 0) {
                     nextInput = getNextInput(nextInput);
                 }
                 nextInput.focus();
-            break;
+                break;
 
             //поле "Колонка"
             case 'report__table__tbody__tr__price-column__input':
@@ -592,23 +579,23 @@ $(document).bind('activeInputChange', function (event, input) {
 
                 sendClientToDB(clientInput, managerInput, priceColumnInput);
                 var nextInput = getNextInput(input);
-                while (nextInput.val().length > 0 ){
+                while (nextInput.val().length > 0) {
                     nextInput = getNextInput(nextInput);
                 }
                 nextInput.focus();
-            break
+                break
         }
         removeIdActiveInput();
         removeDropDownList();
     });
-/** отслеживание момента заполнения input через autocomplete */
+    /** отслеживание момента заполнения input через autocomplete */
 
 
     $(document).bind('clickOnListItem', function (event) {
         setAttrFromDropDownListItem();
     });
 
-/** отслеживание момента потери фокуса input */
+    /** отслеживание момента потери фокуса input */
     $(document).bind('activeInputFocusOut', function (event, input) {
         removeDropDownList();
         current_row = getCurrentRow($(input));
@@ -631,40 +618,6 @@ $(document).bind('activeInputChange', function (event, input) {
                             client_list[answer[0][0]][3] + '::' +
                             client_list[answer[0][0]][4]
                         );
-
-                        /**
-                         * работает криво. Идея была в заполнении менеджера и колонки
-                         * если клиент заполнен, но не нажали Enter, а фокус ушел, например через Tab
-                         */
-                        //console.log(manager_list);
-                        //console.log('/' + );
-
-/*
-                        managerID = client_list[answer[0][0]][2];
-                        priceColumnID = client_list[answer[0][0]][3];
-
-
-                        managerInput.val(manager_list[managerID-1][1]);
-                        managerInput.attr(ATTR_RECID, manager_list[managerID-1][0] + '::' + manager_list[managerID-1][1]);
-
-                        priceColumnInput.val(priceColumnID);
-                        priceColumnInput.attr(ATTR_RECID, priceColumnID);
-
-                        var managerFill = false;
-                        var priceColumnFill = false;
-                        var clientFill = false;
-
-                        managerFill = (managerInput.val().length > 1) ? true : false;
-                        priceColumnFill = (priceColumnInput.val().length > 1) ? true : false;
-
-
-                        console.log(managerFill + '/' + priceColumnFill);
-                        (priceColumnFill) ? false : priceColumnInput.focus();
-
-                        (managerFill) ? false : managerInput.focus();
-
-                        (priceColumnFill && managerFill) ?  documentNumberInput.focus() : false;
-*/
                     } else {
                         managerInput.val('');
                         managerInput.removeAttr(ATTR_RECID);
@@ -673,7 +626,7 @@ $(document).bind('activeInputChange', function (event, input) {
                         priceColumnInput.removeAttr(ATTR_RECID);
                     }
                 }
-            break;
+                break;
 
             case 'report__table__tbody__tr__manager__input':
                 //если вставки из выпадающего списка не было (аттрибут recid не существует)
@@ -688,41 +641,41 @@ $(document).bind('activeInputChange', function (event, input) {
                         sendManagerToDB(input);
                     }
                     //если клиент, менеджер и колонка введены, то обновляем запись в таблице клиент
-                    if (!isEmpty(current_row)){
+                    if (!isEmpty(current_row)) {
                         console.log('отправка данных клиента после потери фокуса полем "Менеджер"');
                         sendClientToDB(clientInput, managerInput, priceColumnInput);
                     }
                 }
-            break;
+                break;
         }
     });
-/** отслеживание момента потери фокуса input */
+    /** отслеживание момента потери фокуса input */
 });
 
 
-$(window).resize(function(){
+$(window).resize(function () {
     resizeReportList();
     resizeReportHeader();
     resizeReportHistory();
 });
 
 
-function resizeReportList(){
+function resizeReportList() {
     var body_height = $('body').height();
     var reportList = $('.report');
     var footer_height = $('.footer').height();
-    var reportList_height = body_height-footer_height-200;
+    var reportList_height = body_height - footer_height - 200;
 
     $(reportList).height(reportList_height);
 
-    $('.report__table__tbody').css('max-height',reportList_height - 82);
+    $('.report__table__tbody').css('max-height', reportList_height - 82);
 }
 
-function resizeReportHistory(){
+function resizeReportHistory() {
     var body_height = $('body').height();
     var reportHistory = $('.report__history_visible');
     var footer_height = $('.footer').height();
-    var reportHistory_height = body_height-footer_height-244;
+    var reportHistory_height = body_height - footer_height - 244;
 
     $(reportHistory).height(reportHistory_height);
 
@@ -731,13 +684,13 @@ function resizeReportHistory(){
 
 
 //подстраивает ширину ячеек шапки таблицы под ячеки таблицы с данными
-function resizeReportHeader(){
+function resizeReportHeader() {
 
 //массив ширин ячеек строки таблицы отчета
-var widths = [];
+    var widths = [];
 
     //в цыкле обращаемся к каждой ячейки первой строки таблицы отчета и запоминаем ширину этой ячеки
-    $('.report__table__tbody tr:eq(0) td ').each(function() {
+    $('.report__table__tbody tr:eq(0) td ').each(function () {
         widths.push($(this)[0].getBoundingClientRect().width);
     });
 
@@ -753,76 +706,73 @@ var widths = [];
 }
 
 
-
 //приводит строку к виду "123 456.78"
-function mask_money(val){
-    val = val+''; //мнимое преобразование в строку
+function mask_money(val) {
+    val = val + ''; //мнимое преобразование в строку
     var result = '';
 
     val = val.replace(/[^0-9\-\,\.]/gi, '');
 
     if (val.length > 0) {
         val = val.replace(/\,/gi, '.');
-        dotCount = val.split('.').length-1;
-        while (dotCount >1){
+        dotCount = val.split('.').length - 1;
+        while (dotCount > 1) {
             val = val.replace('.', '');
-            dotCount = val.split('.').length-1;
+            dotCount = val.split('.').length - 1;
         }
 
         pos = val.indexOf('.');
-        if (pos == -1 || val.length-pos == 1){
+        if (pos == -1 || val.length - pos == 1) {
             val += '.00';
             pos = val.indexOf('.');
         }
 
-        if (val.length-pos == 2){
-            val +='0';
+        if (val.length - pos == 2) {
+            val += '0';
         }
 
-        var len = (val.substr(0, pos-1)).length;
-        var cut_count = Math.floor(len/3);
+        var len = (val.substr(0, pos - 1)).length;
+        var cut_count = Math.floor(len / 3);
 
-        for (var i = 1; i <= cut_count; i++){
-            result = val.substr(len-2*i, 3)+' '+result;
+        for (var i = 1; i <= cut_count; i++) {
+            result = val.substr(len - 2 * i, 3) + ' ' + result;
             len--;
         }
         len--;
 
-        if (cut_count >0){
-            result = val.substr(0, len-2*cut_count+2)+' '+result.substr(0, result.length-1)+val.substr(pos, 3);
+        if (cut_count > 0) {
+            result = val.substr(0, len - 2 * cut_count + 2) + ' ' + result.substr(0, result.length - 1) + val.substr(pos, 3);
         } else {
-            result = val.substr(0, len-2*cut_count+2)+result.substr(0, result.length-1)+val.substr(pos, 3);
+            result = val.substr(0, len - 2 * cut_count + 2) + result.substr(0, result.length - 1) + val.substr(pos, 3);
         }
     }
     return result;
 }
 
 
-
-
 //приводит строку (дату) к виду дд.мм.гг. длина введенного значения должна быть хотя бы 4 цифры
-function mask_date(val, checkDate){
+function mask_date(val, checkDate) {
 
     checkDate = checkDate || false; //делать ли проверку даты
     var array_of_possible_dates = [];
 
     //функция проверки даты, принимает значение и диапазоны
-    function check_range(data, minValue, maxValue, correctData){
+    function check_range(data, minValue, maxValue, correctData) {
         correctData = correctData || false;
         data = Number(data);
-        var check = (data >= minValue && data <=maxValue) ? (correctData)?data:true : (correctData)? (data < minValue)? minValue:maxValue: false;
+        var check = (data >= minValue && data <= maxValue) ? (correctData) ? data : true : (correctData) ? (data < minValue) ? minValue : maxValue : false;
 
         return check;
     }
 
 
     //удаляю все символы кроме цифр
-    val = val.replace(/\D/g,"");
+    val = val.replace(/\D/g, "");
 
-    if (val.length >= 4 && val != '010170'){
+    if (val.length >= 4 && val != '010170') {
 
         // обрезаем введенное значение до 6-ти символов
-        (val.length > 6) ? val = val.substr(0,6):false;
+        (val.length > 6) ? val = val.substr(0, 6) : false;
 
         if (checkDate) {
             // Указать место/значение начальной даты
@@ -831,75 +781,75 @@ function mask_date(val, checkDate){
             starting_date = starting_date.replace(/[^0-9\-\,\.]/gi, '');
             // Указать место/значение начальной даты
 
-        // длина даты без года (год ВСЕГДА две цифры)
+            // длина даты без года (год ВСЕГДА две цифры)
             dateLength = val.length - 2;
 
             /** год */
-            year = val.substr(dateLength,2);
+            year = val.substr(dateLength, 2);
 
-            dayMonth = val.substr(0,dateLength);
+            dayMonth = val.substr(0, dateLength);
 
 
-            dayMonthLength = (dayMonth+'').length;
+            dayMonthLength = (dayMonth + '').length;
 
-            switch(dayMonthLength){
+            switch (dayMonthLength) {
                 case 2:
-                    day = dayMonth.substr(0,1);
-                    month = dayMonth.substr(1,1);
+                    day = dayMonth.substr(0, 1);
+                    month = dayMonth.substr(1, 1);
 
-                    day = (day >0) ? day: 1;
-                    month = (month >0) ? month:1;
+                    day = (day > 0) ? day : 1;
+                    month = (month > 0) ? month : 1;
 
-                    array_of_possible_dates.push('0'+day+'0'+month+year);
+                    array_of_possible_dates.push('0' + day + '0' + month + year);
                     break;
 
                 case 3:
-                    day = Number(dayMonth.substr(0,2));
-                    month = Number(dayMonth.substr(1,2));
+                    day = Number(dayMonth.substr(0, 2));
+                    month = Number(dayMonth.substr(1, 2));
 
                     //диапазоны
                     day_range = check_range(day, 1, 31);
                     month_range = check_range(month, 1, 12);
 
                     //таблица истинности
-                    day = !day_range && month_range ? Number(String(day).substr(0,1)): day;
-                    month = day_range && !month_range ?  Number(String(month).substr(1,1)) : month;
+                    day = !day_range && month_range ? Number(String(day).substr(0, 1)) : day;
+                    month = day_range && !month_range ? Number(String(month).substr(1, 1)) : month;
 
                     day_range = check_range(day, 1, 31);
                     month_range = check_range(month, 1, 12);
 
                     (day_range && month_range) ?
                         (month < 10 && day < 10) ?
-                            array_of_possible_dates.push('0'+String(day).substr(0,1)+'0'+String(month).substr(0,1)+''+year)
+                            array_of_possible_dates.push('0' + String(day).substr(0, 1) + '0' + String(month).substr(0, 1) + '' + year)
                             :
                             (month < 10) ?
-                                array_of_possible_dates.push(''+day+'0'+String(month).substr(0,1)+''+year)
+                                array_of_possible_dates.push('' + day + '0' + String(month).substr(0, 1) + '' + year)
                                 :
                                 (month > 9) ?
-                                    array_of_possible_dates.push('0'+String(day).substr(0,1)+''+month+''+year)
+                                    array_of_possible_dates.push('0' + String(day).substr(0, 1) + '' + month + '' + year)
                                     :
                                     false
                         :
                         (!day_range) ?
-                            array_of_possible_dates.push('0'+String(day).substr(0,1)+''+month+''+year)
+                            array_of_possible_dates.push('0' + String(day).substr(0, 1) + '' + month + '' + year)
                             :
                             (!month_range) ?
-                                array_of_possible_dates.push(''+day+'0'+String(month).substr(0,1)+''+year)
+                                array_of_possible_dates.push('' + day + '0' + String(month).substr(0, 1) + '' + year)
                                 :
                                 false;
 
                     break;
 
                 case 4:
-                    day = Number(dayMonth.substr(0,2));
-                    month = Number(dayMonth.substr(2,2));
+                    day = Number(dayMonth.substr(0, 2));
+                    month = Number(dayMonth.substr(2, 2));
                     day_range = check_range(day, 1, 31);
                     month_range = check_range(month, 1, 12);
 
-                    if (day_range && month_range){
-                        (day < 10 ) ? day='0'+day: false;
-                        (month < 10) ? month = '0'+month: false;
-                        array_of_possible_dates.push(''+day+''+month+''+year);
+                    if (day_range && month_range) {
+                        (day < 10 ) ? day = '0' + day : false;
+                        (month < 10) ? month = '0' + month : false;
+                        array_of_possible_dates.push('' + day + '' + month + '' + year);
                     }
                     break;
             }
@@ -914,29 +864,27 @@ function mask_date(val, checkDate){
 }
 
 
-
-
 /**
  * array_of_possible_dates - возможные даты (без даты отсчета)
  * starting_date - дата отсчета, это может быть текущая дата или та, что используется
  */
-function check_date(array_of_possible_dates, starting_date){
+function check_date(array_of_possible_dates, starting_date) {
     array_of_possible_dates.push(starting_date);
 
-    for (i=0; i<array_of_possible_dates.length; i++){
-        array_of_possible_dates[i] = (array_of_possible_dates[i]+"").replace(/\D/g,"");
-        array_of_possible_dates[i] = array_of_possible_dates[i].substr(0,2)+'.'+array_of_possible_dates[i].substr(2,2)+'.'+array_of_possible_dates[i].substr(4,2);
+    for (i = 0; i < array_of_possible_dates.length; i++) {
+        array_of_possible_dates[i] = (array_of_possible_dates[i] + "").replace(/\D/g, "");
+        array_of_possible_dates[i] = array_of_possible_dates[i].substr(0, 2) + '.' + array_of_possible_dates[i].substr(2, 2) + '.' + array_of_possible_dates[i].substr(4, 2);
     }
 
     //сортируем даты по возрастанию
-    for (i= 0; i <(array_of_possible_dates.length-1); i++){
+    for (i = 0; i < (array_of_possible_dates.length - 1); i++) {
         var current = array_of_possible_dates[i];
         current = current.split('.');
 
-        var next = array_of_possible_dates[i+1];
+        var next = array_of_possible_dates[i + 1];
         next = next.split('.');
 
-        for ($j = 0; $j < 3; $j++){
+        for ($j = 0; $j < 3; $j++) {
             current[$j] += 0;
             next[$j] += 0;
         }
@@ -944,7 +892,7 @@ function check_date(array_of_possible_dates, starting_date){
         if (current[2] < next[2]) {
             do_replace = true;
         } else {
-            if (current[2] <= next[2] && current[1]< next[1]) {
+            if (current[2] <= next[2] && current[1] < next[1]) {
                 do_replace = true;
             } else {
                 if (current[2] <= next[2] && current[1] <= next[1] && current[0] < next[0]) {
@@ -955,33 +903,33 @@ function check_date(array_of_possible_dates, starting_date){
             }
         }
 
-        if (do_replace == true){
+        if (do_replace == true) {
             tmp = array_of_possible_dates[i];
-            array_of_possible_dates[i] = array_of_possible_dates[i+1];
-            array_of_possible_dates[i+1] = tmp;
-            i=-1;
+            array_of_possible_dates[i] = array_of_possible_dates[i + 1];
+            array_of_possible_dates[i + 1] = tmp;
+            i = -1;
         }
     }
 
 
-    switch (array_of_possible_dates.length){
+    switch (array_of_possible_dates.length) {
         case 2:
-            if (starting_date == array_of_possible_dates[0]){
+            if (starting_date == array_of_possible_dates[0]) {
                 result = array_of_possible_dates[1];
             } else {
-                if (starting_date == array_of_possible_dates[1]){
+                if (starting_date == array_of_possible_dates[1]) {
                     result = array_of_possible_dates[0]
                 }
             }
             break;
         case 3:
-            if (starting_date == array_of_possible_dates[0]){
+            if (starting_date == array_of_possible_dates[0]) {
                 result = array_of_possible_dates[1];
             } else {
-                if (starting_date == array_of_possible_dates[1]){
+                if (starting_date == array_of_possible_dates[1]) {
                     result = array_of_possible_dates[2];
                 } else {
-                    if (starting_date == array_of_possible_dates[2]){
+                    if (starting_date == array_of_possible_dates[2]) {
                         result = starting_date;
                     }
                 }
@@ -989,76 +937,69 @@ function check_date(array_of_possible_dates, starting_date){
             }
             break;
 
-        default : result = '00.00.00'; break;
+        default :
+            result = '00.00.00';
+            break;
     }
 
-    result = result.replace(/\D/g,"");
+    result = result.replace(/\D/g, "");
 
     return result;
 }
 
 
-
-
 //переназначает номера строк (report__table__tbody__tr__row-number)
-function renumbering(){
+function renumbering() {
     row_count = $('.report__table__tbody__tr').length;
-    for (var i=contextmenu_row_index; i <= row_count; i++){
-        $('.report__table__tbody tr').eq(i).children('.report__table__tbody__tr__row-number').html(i+1);
+    for (var i = contextmenu_row_index; i <= row_count; i++) {
+        $('.report__table__tbody tr').eq(i).children('.report__table__tbody__tr__row-number').html(i + 1);
     }
 }
 
 
-
-
 //обновить поле "Итого" на странице
-function setTotalCost(){
+function setTotalCost() {
     $('.report__info-box__total-cost span').html(mask_money(getTotalCost()));
 }
 
 
-
 //подсчет общей суммы
-function getTotalCost(){
+function getTotalCost() {
     row_count = $('.report__table__tbody__tr').length;
     cost = 0.00;
 
-    for (var i=0; i < row_count; i++) {
+    for (var i = 0; i < row_count; i++) {
         val = $('.report__table__tbody tr').eq(i).children('td').children('.report__table__tbody__tr__cost__input').val();
         val = (typeof(val) == 'undefined') ? 0.0 : val.replace(/[^0-9\-\.]/gi, '');
         cost += Number(val) * 100;
     }
-    if (cost == 0){
+    if (cost == 0) {
         cost = '0.00';
-    } else cost = cost/100;
+    } else cost = cost / 100;
 
     return cost;
 }
 
 
-
-
 //вернет длину строки. 0 - пустая иначе - что-то введено
-function isEmpty(row){
+function isEmpty(row) {
 
-    len =  $(row).children('td').children('.report__table__tbody__tr__client__input').val().length;
+    len = $(row).children('td').children('.report__table__tbody__tr__client__input').val().length;
     len += $(row).children('td').children('.report__table__tbody__tr__manager__input').val().length;
     len += $(row).children('td').children('.report__table__tbody__tr__price-column__input').val().length;
     return len;
 }
 
 
-
-
 // копирует атрибуты и значения полей верхней строки
-function copyUpperRow(current_row, focus_on){
+function copyUpperRow(current_row, focus_on) {
     /**
      *  можно добавить такую штуку:
      *
      *  проверка на заполненность полей. Т.е. если сума не заполнена, то переместить фокус на поле "Сумма"
      */
     var row_index = current_row.index();
-    if ((row_index+1) > 1) {
+    if ((row_index + 1) > 1) {
         //currentInput = $(focus_on);
         focus_on = focus_on.attr('class');
 
@@ -1071,7 +1012,7 @@ function copyUpperRow(current_row, focus_on){
             current_row.children('td').children('.report__table__tbody__tr__document-date__input').focus();
 
 
-        } else if (focus_on == 'report__table__tbody__tr__manager__input'){
+        } else if (focus_on == 'report__table__tbody__tr__manager__input') {
 
             var clone_manager = clone.children('td').children('.report__table__tbody__tr__manager__input').clone();
             current_row.children('.report__table__tbody__tr__manager').html(clone_manager);
@@ -1121,27 +1062,25 @@ function copyUpperRow(current_row, focus_on){
             current_row.children('td').children('.report__table__tbody__tr__document-number__input').focus();
         }
     } else {
-        console.log('Я должен копировать верхнюю строку, но строка имеет номер '+ (row_index+1) +' и мне нечего копировать');
+        console.log('Я должен копировать верхнюю строку, но строка имеет номер ' + (row_index + 1) + ' и мне нечего копировать');
     }
 }
 
 
-
-
-function welcome(){
+function welcome() {
     console.log('=== Кассовый отчет ===');
 }
 
 
 //сохранение отчета
-function saveReport(){
+function saveReport() {
     //собираем данные
     var count_row = $('.report__table__tbody__tr').length;
-    var report = [];//new Array;
+    var report = [];
 
     reportDate = $('.tool-bar__report-date-box__date').text().replace(/[^0-9\-\.]/gi, '').split('.');
 
-    reportDate = '20'+reportDate[2]+'-'+reportDate[1]+'-'+reportDate[0];
+    reportDate = '20' + reportDate[2] + '-' + reportDate[1] + '-' + reportDate[0];
 
     //дата отчета (из календаря)
     report.push(reportDate);
@@ -1152,29 +1091,30 @@ function saveReport(){
 
 
     var row = $('.report__table__tbody__tr').eq(0);
-    for (var i=0; i <= count_row; i++){
-            var cost = row.children('td').children('.report__table__tbody__tr__cost__input').val();
+    var totalCost = '';
+    for (var i = 0; i <= count_row; i++) {
+        var cost = row.children('td').children('.report__table__tbody__tr__cost__input').val();
+        totalCost += cost;
+        var priceType = row.children('td').children('.report__table__tbody__tr__price-type__input');
+        priceType = (priceType.hasAttr(ATTR_RECID)) ? priceType.attr(ATTR_RECID) : '';
 
-            var priceType = row.children('td').children('.report__table__tbody__tr__price-type__input');
-                priceType = (priceType.hasAttr(ATTR_RECID))? priceType.attr(ATTR_RECID): '';
+        var client = row.children('td').children('.report__table__tbody__tr__client__input');
+        client = (client.hasAttr(ATTR_RECID)) ? client.attr(ATTR_RECID).split('::')[0] : '';
 
-            var client = row.children('td').children('.report__table__tbody__tr__client__input');
-                client = (client.hasAttr(ATTR_RECID))? client.attr(ATTR_RECID).split('::')[0]: '';
+        var manager = row.children('td').children('.report__table__tbody__tr__manager__input');
+        manager = (manager.hasAttr(ATTR_RECID)) ? manager.attr(ATTR_RECID).split('::')[0] : '';
 
-            var manager = row.children('td').children('.report__table__tbody__tr__manager__input');
-                manager = (manager.hasAttr(ATTR_RECID))? manager.attr(ATTR_RECID).split('::')[0]: '';
-
-            var priceColumn = row.children('td').children('.report__table__tbody__tr__price-column__input');
-                priceColumn = (priceColumn.hasAttr(ATTR_RECID))? priceColumn.attr(ATTR_RECID): '';
-
-        
-            var documentNumber = row.children('td').children('.report__table__tbody__tr__document-number__input').val();
+        var priceColumn = row.children('td').children('.report__table__tbody__tr__price-column__input');
+        priceColumn = (priceColumn.hasAttr(ATTR_RECID)) ? priceColumn.attr(ATTR_RECID) : '';
 
 
-            var documentDate = row.children('td').children('.report__table__tbody__tr__document-date__input').val().split('.');
-                documentDate = '20'+documentDate[2]+'-'+documentDate[1]+'-'+documentDate[0];
+        var documentNumber = row.children('td').children('.report__table__tbody__tr__document-number__input').val();
 
-        if (cost.length > 0){
+
+        var documentDate = row.children('td').children('.report__table__tbody__tr__document-date__input').val().split('.');
+        documentDate = '20' + documentDate[2] + '-' + documentDate[1] + '-' + documentDate[0];
+
+        if (cost.length > 0) {
             report.push(
                 [
                     cost,
@@ -1189,37 +1129,37 @@ function saveReport(){
         }
         row = row.next();
     }
-
-    //отправляем их в БД
-
-    $.ajax({
-        url: '/cashbox/default/save-report',
-        type: 'POST',
-        data: {'report':report},
-        async: true,
-        success: function(answer){
-            //console.log('Сохранение отчета. '+answer);
-            getHistory(seller);
-            scrollToSameWay();
-        },
-        error: function(answer){
-            console.log('Ошибка отправки данных отчета в БД. #'+answer);
-        }
-    });
-    $('.report__info-box__status').fadeIn(3000);
-    $('.report__info-box__status').fadeOut(3000);
-
+    if (totalCost.length > 0) {
+        //отправляем их в БД
+        $.ajax({
+            url: '/cashbox/default/save-report',
+            type: 'POST',
+            data: {'report': report},
+            async: true,
+            success: function (answer) {
+                getHistory(seller);
+                scrollToSameWay();
+            },
+            error: function (answer) {
+                console.log('Ошибка отправки данных отчета в БД. #' + answer);
+            }
+        });
+        $('.report__info-box__status').fadeIn(3000);
+        $('.report__info-box__status').fadeOut(3000);
+    } else {
+        alert('Отчет пуст, нечего сохранять');
+    }
 }
 
 
 //печать отчета
-function printReport(){
+function printReport() {
     var count_row = $('.report__table__tbody__tr').length;
     var report = new Array;
 
     reportDate = $('.tool-bar__report-date-box__date').text().replace(/[^0-9\-\.]/gi, '').split('.');
 
-    reportDate = '20'+reportDate[2]+'-'+reportDate[1]+'-'+reportDate[0];
+    reportDate = '20' + reportDate[2] + '-' + reportDate[1] + '-' + reportDate[0];
 
     //дата отчета (из календаря)
     report.push(reportDate);
@@ -1230,7 +1170,7 @@ function printReport(){
 
 
     var row = $('.report__table__tbody__tr').eq(0);
-    for (var i=0; i <= count_row; i++){
+    for (var i = 0; i <= count_row; i++) {
         var cost = row.children('td').children('.report__table__tbody__tr__cost__input').val();
 
         var priceType = row.children('td').children('.report__table__tbody__tr__price-type__input').val();
@@ -1247,7 +1187,7 @@ function printReport(){
 
         var documentDate = row.children('td').children('.report__table__tbody__tr__document-date__input').val();
 
-        if (cost.length > 0){
+        if (cost.length > 0) {
             report.push(
                 [
                     cost,
@@ -1263,35 +1203,31 @@ function printReport(){
         row = row.next();
     }
 
-
-
     $.ajax({
         url: '/cashbox/default/print-report',
         type: 'POST',
-        data: {'report':report},
+        data: {'report': report},
         async: true,
-        success: function(answer){
+        success: function (answer) {
             window.location.replace(answer);
         },
-        error: function(answer){
-            console.log('Ошибка отправки данных отчета в БД. #'+answer);
+        error: function (answer) {
+            console.log('Ошибка отправки данных отчета в БД. #' + answer);
         }
     });
-
 }
 
 
-
 //загрузка отчета
-function loadReport(item){
+function loadReport(item) {
     newReport();
     reportId = item.attr('id');
     $.ajax({
         url: '/cashbox/default/load-report',
         type: 'POST',
-        data: {'id': reportId },
+        data: {'id': reportId},
         async: false,
-        success: function(answer){
+        success: function (answer) {
             var records = createArrayFromString(answer);
             if (records.length > 1) {
                 $('.report__table__tbody__tr').remove();
@@ -1318,14 +1254,14 @@ function loadReport(item){
             saveStateHistory();
             resizeReportHeader();
         },
-        error: function(answer){
-            console.log('Ошибка загрузки отчета. #'+answer);
+        error: function (answer) {
+            console.log('Ошибка загрузки отчета. #' + answer);
         }
     })
 }
 
 
-function getManagerName(id){
+function getManagerName(id) {
     if (id > 0) {
         for (var i = 0; i < manager_list.length; i++) {
             if (manager_list[i][0] == id) {
@@ -1336,78 +1272,77 @@ function getManagerName(id){
 }
 
 
-
-function getClientName(id){
-    for (var i=0; i<client_list.length; i++){
-        if (client_list[i][0] == id){
-            return client_list[i][1];
+function getClientName(id) {
+    if (id > 0) {
+        for (var i = 0; i < client_list.length; i++) {
+            if (client_list[i][0] == id) {
+                return client_list[i][1];
+            }
         }
-    }
+    } else return '';
 }
 
 
-
 //получсаем список продавцов-компаний
-function getSellerList(){
+function getSellerList() {
     $.ajax({
         url: '/cashbox/default/get-seller-list',
         type: 'POST',
         async: true,
-        success: function(answer){
+        success: function (answer) {
             var seller = createArrayFromString(answer)
             setSellerList(seller);
 
             getHistory(seller[0][0]);
         },
-        error: function(answer){
-            console.log('Ошибка получения списка продавцов. # '+answer);
+        error: function (answer) {
+            console.log('Ошибка получения списка продавцов. # ' + answer);
         }
     })
 }
 
 
 //создаем список продавцов-компаний
-function setSellerList(arr){
+function setSellerList(arr) {
     option = '';
-    for (var i=0; i< arr.length; i++){
-        option += '<option value="'+ arr[i][0] +'">'+ arr[i][1] +'</option>';
+    for (var i = 0; i < arr.length; i++) {
+        option += '<option value="' + arr[i][0] + '">' + arr[i][1] + '</option>';
     }
     $('.cashbox-select-company').html(option);
 
-    arr.forEach(function(item, i, arr){
-       state_history.push(i);
+    arr.forEach(function (item, i, arr) {
+        state_history.push(i);
     });
 }
 
 
-
-function getClientList(){
+function getClientList() {
     $.ajax({
         url: '/cashbox/default/get-client-list',
         type: 'POST',
         async: false,
-        success: function(answer){
+        success: function (answer) {
             arr = createArrayFromString(answer);
             setClientList(arr);
         },
-        error: function(answer){
-            console.log('Ошибка получения списка клиентов. # '+answer);
+        error: function (answer) {
+            console.log('Ошибка получения списка клиентов. # ' + answer);
         }
     });
 }
 
-function setClientList(arr){
+function setClientList(arr) {
     client_list = arr;
 }
 
 
-function sendClientToDB(clientInput, managerInput, priceColumnInput){
+function sendClientToDB(clientInput, managerInput, priceColumnInput) {
     clientmane = $(clientInput).val();
 
     /*
-        иногда возникает ошибка, так как ответ от БД после добавления новой записи еще не пришел
-        добавить таймер или ожидание какого-лтбо события
-    */
+     иногда возникает ошибка, так как ответ от БД после добавления новой записи еще не пришел
+     добавить таймер или ожидание какого-лтбо события
+     */
     manager = managerInput.attr(ATTR_RECID);
     if (manager != undefined) {
         manager = manager.split('::');
@@ -1422,19 +1357,19 @@ function sendClientToDB(clientInput, managerInput, priceColumnInput){
             type: 'POST',
             data: {'clientname': clientmane, 'manager': managerID, 'pricecolumn': priceColumn},
             async: true,
-            success: function (answer){
+            success: function (answer) {
                 $(clientInput).attr(ATTR_RECID, answer);
                 getClientList();
             },
-            error: function(answer){
-                console.log('Ошибка отправки данных клиента. #'+answer);
+            error: function (answer) {
+                console.log('Ошибка отправки данных клиента. #' + answer);
             }
         });
     }
 }
 
 
-function sendManagerToDB(input){
+function sendManagerToDB(input) {
     managername = $(input).val();
     if (managername.length > 3) {
         $.ajax({
@@ -1455,52 +1390,50 @@ function sendManagerToDB(input){
 }
 
 
-function getManagerList(){
+function getManagerList() {
     $.ajax({
         url: '/cashbox/default/get-manager-list',
         type: 'POST',
         async: false,
-        success: function(answer){
+        success: function (answer) {
             arr = createArrayFromString(answer);
             setManagerList(arr);
         },
-        error: function(answer){
-            console.log('Ошибка получения списка менеджеров. # '+answer);
+        error: function (answer) {
+            console.log('Ошибка получения списка менеджеров. # ' + answer);
         }
     });
 }
 
-function setManagerList(arr){
+function setManagerList(arr) {
     manager_list = arr;
 
 }
 
 //сохранит в массив состояние списка сохраненных отчетов
-function saveStateHistory(){
+function saveStateHistory() {
     //компания - продавец
     var seller = $('.cashbox-select-company option:selected').val();
 
     delete state_history[seller];
     state_history[seller] = [];
 
-    $('.report__history__year-list__item__month-list_visible').each(function(){
+    $('.report__history__year-list__item__month-list_visible').each(function () {
         var state_history_item = [];
         state_history_item.push($(this).prev('.report__history__year-list__item__caption').html());
-        $(this).children('li').children('.report__history__year-list__item__month-list__item__day-list_visible').each(function(){
+        $(this).children('li').children('.report__history__year-list__item__month-list__item__day-list_visible').each(function () {
             state_history_item.push($(this).prev('.report__history__year-list__item__month-list__item__caption').html());
-            $(this).children('.report__history__year-list__item__month-list__item__day-list__item_active').each(function(){
+            $(this).children('.report__history__year-list__item__month-list__item__day-list__item_active').each(function () {
                 state_history_item.push($(this).attr('id'));
             });
         });
         state_history[seller].push(state_history_item);
     });
-
-    //console.log(state_history[seller]);
 }
 
 
 //новый отчет
-function newReport(){
+function newReport() {
     $('.report__table__tbody__tr').remove();
     $('.report__table__tbody__tr_last').before(
         '<tr class="report__table__tbody__tr">' +
@@ -1524,7 +1457,7 @@ function newReport(){
 
 
 //загрузит состояние списка сохраненных отчетов
-function loadStateHistory(){
+function loadStateHistory() {
     var seller = $('.cashbox-select-company option:selected').val();
     if (state_history[seller] != undefined) {
         for (i = 0; i < state_history[seller].length; i++) {
@@ -1543,7 +1476,7 @@ function loadStateHistory(){
 }
 
 //функция вернет массив ключ - значение, для отслеживания заполненности полей Клиент-Менеджер-Колонка
-function checkFieldsForDB(row){
+function checkFieldsForDB(row) {
     /**
      * Пусть эта функция так же делает проверку на корректность введенных данных
      *
@@ -1551,17 +1484,17 @@ function checkFieldsForDB(row){
     fields = [0, 0, 0]; //client-manager-priceColumn
 
     /*
-    len =  $(row).children('.report__table__tbody__tr__client').children('input').val().length;
-    len += $(row).children('.report__table__tbody__tr__manager').children('input').val().length;
-    len += $(row).children('.report__table__tbody__tr__price-column').children('input').val().length;
-    return len;
-    */
+     len =  $(row).children('.report__table__tbody__tr__client').children('input').val().length;
+     len += $(row).children('.report__table__tbody__tr__manager').children('input').val().length;
+     len += $(row).children('.report__table__tbody__tr__price-column').children('input').val().length;
+     return len;
+     */
 
     return fields;
 }
 
 
-function getHistory(){
+function getHistory() {
     var sellerID = $('.cashbox-select-company option:selected').val();
     var result = false;
     $.ajax({
@@ -1569,27 +1502,27 @@ function getHistory(){
         type: 'POST',
         data: {'seller': sellerID},
         async: false,
-        success: function(answer){
-            if (answer.length >0) {
+        success: function (answer) {
+            if (answer.length > 0) {
                 createHistoryBox(createArrayFromString(answer));
                 loadStateHistory();
             }
         },
-        error: function(answer){
-            console.log('ошиба загрузки истории отчетов. '+answer);
+        error: function (answer) {
+            console.log('ошиба загрузки истории отчетов. ' + answer);
 
         }
     });
 }
 
-function createHistoryBox(records){
+function createHistoryBox(records) {
     var Months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
     var history = '<ul class="report__history__year-list">';
     var currentYear = null;
     var currentMonth = null;
     var currentDay = null;
 
-    for (i=0; i<records.length; i++){
+    for (i = 0; i < records.length; i++) {
         var recordDate = records[i][2].split('-');
         if (recordDate[0] != currentYear) {
             history += (currentYear != null) ? '</ul/></ul></li>' : '';
@@ -1597,27 +1530,27 @@ function createHistoryBox(records){
             currentMonth = null;
             currentDay = null;
 
-            history +=  '<li class="report__history__year-list__item">';
-            history +=      '<div class="report__history__year-list__item__caption" id="year'+currentYear+'">'+currentYear+'</div>';
-            history +=      '<ul class="report__history__year-list__item__month-list">';
+            history += '<li class="report__history__year-list__item">';
+            history += '<div class="report__history__year-list__item__caption" id="year' + currentYear + '">' + currentYear + '</div>';
+            history += '<ul class="report__history__year-list__item__month-list">';
         }
 
-        if (recordDate[1] != currentMonth){
+        if (recordDate[1] != currentMonth) {
             history += (currentMonth != null) ? '</ul></li>' : '';
             currentMonth = recordDate[1];
             currentDay = null;
 
-            history +=          '<li class="report__history__year-list__item__month-list__item">';
-            history +=              '<div class="report__history__year-list__item__month-list__item__caption" id="month'+Months[currentMonth-1]+'">'+Months[currentMonth-1]+'</div>';
-            history +=              '<ul class="report__history__year-list__item__month-list__item__day-list ">';
+            history += '<li class="report__history__year-list__item__month-list__item">';
+            history += '<div class="report__history__year-list__item__month-list__item__caption" id="month' + Months[currentMonth - 1] + '">' + Months[currentMonth - 1] + '</div>';
+            history += '<ul class="report__history__year-list__item__month-list__item__day-list ">';
         }
 
-        if (recordDate[2] != currentDay){
+        if (recordDate[2] != currentDay) {
             currentDay = recordDate[2];
-            history +=                  '<li class="report__history__year-list__item__month-list__item__day-list__item" id="'+records[i][0]+'">';
-            history +=                      '<span class="report__history__year-list__item__month-list__item__day-list__item__caption">'+currentDay+'</span>';
-            history +=                      '<span class="report__history__year-list__item__month-list__item__day-list__item__cost">'+mask_money(records[i][1])+' руб.</span>';
-            history +=                  '</li>';
+            history += '<li class="report__history__year-list__item__month-list__item__day-list__item" id="' + records[i][0] + '">';
+            history += '<span class="report__history__year-list__item__month-list__item__day-list__item__caption">' + currentDay + '</span>';
+            history += '<span class="report__history__year-list__item__month-list__item__day-list__item__cost">' + mask_money(records[i][1]) + ' руб.</span>';
+            history += '</li>';
         }
     }
     $('.report__history').html(history);
@@ -1625,10 +1558,10 @@ function createHistoryBox(records){
 
 //из строки вида elem1, elem2; elem3, elem4 создаст массив вида
 // [ [elem1, elem2], [elem3, elem4] ]
-function createArrayFromString(str){
+function createArrayFromString(str) {
     arr = [];
     element = str.split(';');
-    for (var i=0; i< element.length; i++){
+    for (var i = 0; i < element.length; i++) {
         item = element[i].split(',');
         arr[i] = item;
     }
@@ -1636,36 +1569,30 @@ function createArrayFromString(str){
 }
 
 //вернет объект - следующее поле ввода
-function getNextInput(currentInput){
-    //console.log('next input');
+function getNextInput(currentInput) {
     var nextInput = $(currentInput).parents('td').next().children('input');
     nextInput = (nextInput.hasAttr('class')) ? nextInput : $(currentInput).parents('tr').next('tr').children('td').find('input').first();
-
     return nextInput;
 }
 
-//прокрутка вниз списка... перестает работать после добавления 53 строки
-function scrollToBottomReportList(){
-    /**
-     * добавил *2. это костыль, чтобы, когда окно малого размера опускание вниз списка тоже работало
-     */
-    var height = $('.report__table__tbody').height()*2;
-
-
+//прокрутка вниз списка
+function scrollToBottomReportList() {
+    //кол-во строк умножаю на высоту одной этой строки
+    var height = $('.report__table__tbody tr').length * 30;
     return $('.report__table__tbody').scrollTop(height);
 }
 
 //прокрутка в тоже самое место
-function scrollToSameWay(){
+function scrollToSameWay() {
     var height = $('.report__table__tbody').pageYOffset;
     return $('.report__table__tbody').scrollTop(height);
 }
 
 
-function getCurrentRow(input){
+function getCurrentRow(input) {
     return $(input).parents('.report__table__tbody__tr');
 }
 
-$.fn.hasAttr = function(name) {
+$.fn.hasAttr = function (name) {
     return this.attr(name) !== undefined;
 };
