@@ -170,6 +170,7 @@ $(document).ready(function () {
         switch (event.keyCode) {
             case KEY_PAGEUP:
                 if (!usingList()) {
+                    event.preventDefault();
                     copyUpperRow(current_row, input);
                 }
                 break;
@@ -1061,6 +1062,7 @@ function copyUpperRow(current_row, focus_on) {
             }
             current_row.children('td').children('.report__table__tbody__tr__document-number__input').focus();
         }
+        scrollToBottomReportList();
     } else {
         console.log('Я должен копировать верхнюю строку, но строка имеет номер ' + (row_index + 1) + ' и мне нечего копировать');
     }
